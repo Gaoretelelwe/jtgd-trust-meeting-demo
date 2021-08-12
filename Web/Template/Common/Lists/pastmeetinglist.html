@@ -1,0 +1,20 @@
+<h4 class="status-message">Meetings</h4>
+<br />
+{% if meetings %}
+    {% for meeting in meetings %}
+        <div class="row">
+            <div class="col-sm-4">
+                <p>{{ meeting.meetingTitle }}</p>
+            </div>
+            <div class="col-sm-4">
+                <p>{{ meeting.meetingStartDate }}</p>
+            </div>
+            <div class="col-sm-4">
+                <p>{{ meeting.meetingEndDate }}</p>
+            </div>
+        </div>
+        <hr />
+    {% endfor %}
+{% else %}
+    <h4>No Meetings</h4>
+{% endif %}

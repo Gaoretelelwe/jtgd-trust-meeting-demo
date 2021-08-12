@@ -1,0 +1,299 @@
+.card
+{
+    background-color: #c71f2b;
+    border: 1px solid #c71f2b;
+    margin-bottom: 10px;
+}
+
+.card-body
+{
+    background-color: white;
+}
+
+.card-title
+{
+    background-color: #c71f2b;
+    color: white;
+    padding: 10px;
+    letter-spacing: 2px;
+}
+
+.card-text
+{
+    padding: 10px;
+    font-size: 90%;
+}
+
+.card-footer-text
+{
+    border-top: 1px solid #c71f2b;
+    border-bottom: 1px solid #c71f2b;
+    padding: 10px;
+    font-size: 80%;
+    letter-spacing: 2px;
+    word-spacing: 20px;
+    text-align: center;
+}
+
+.card-footer-link
+{
+    align-items: right;
+}
+
+.profile-side-menu
+{
+    text-decoration: none;
+}
+
+.profile-side-menu-item
+{
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px;
+    border-bottom: 1px solid #c71f2b;
+    background-color: pink;
+}
+
+.profile-side-menu-item a:link
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.profile-side-menu-item a:visited
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.profile-side-menu-item a:hover
+{
+    text-decoration: none;
+    color: #c71f2b;
+}
+
+.profile-side-menu-item a:active
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.profile-side-menu-item a:focus
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.vendor-profile-menu
+{
+    text-decoration: none;
+}
+
+.vendor-profile-menu-item
+{
+    text-decoration: none;
+    padding: 5px;
+    margin: 5px;
+    border-bottom: 1px solid #c71f2b;
+}
+
+.vendor-profile-menu-item a:link
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.vendor-profile-menu-item a:visited
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.vendor-profile-menu-item a:hover
+{
+    text-decoration: none;
+    color: #c71f2b;
+}
+
+.vendor-profile-menu-item a:active
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.vendor-profile-menu-item a:focus
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.vendor-profile-menu-item-completed
+{
+    border-bottom: 1px solid #c71f2b;
+    background-color: pink;
+}
+
+.report-type
+{
+    font-size: 90%;
+}
+
+.report-type-row
+{
+    border-bottom: 0.5px solid #000000;
+    padding: 5px;
+    margin: 5px;
+}
+
+.report-type-column p
+{
+    color: #000000;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.report-type-column-child
+{
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 80%;
+    color: #000000;
+}
+
+.report-type-column a
+{
+    text-decoration: none;
+    color: #000000;
+    vertical-align: middle;  
+}
+.report-type-column a:hover
+{
+    color: #c71f2b;
+}
+
+.search-results
+{
+    font-size: 70%;
+}
+
+.search-result-row
+{
+    border-bottom: 0.5px solid #000000;
+    padding: 5px;
+    margin: 5px;
+}
+
+.search-result-column p
+{
+    color: #000000;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.search-result-column-child
+{
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 70%;
+    color: #000000;
+}
+
+.search-result-column a
+{
+    text-decoration: none;
+    color: #000000;
+    vertical-align: middle;  
+}
+.search-result-column a:hover
+{
+    color: #c71f2b;
+}
+
+.loggedinEntityName
+{    
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 80%;
+    color: #c71f2b;
+}
+
+
+.submission-lists
+{
+    font-size: 70%;
+}
+
+.submission-list-row
+{
+    border-bottom: 0.5px solid  #000000;
+    padding: 5px;
+    margin: 5px;
+}
+
+.submission-list-column p
+{
+    color:  #000000;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.submission-list-column-child
+{
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 70%;
+    color:  #000000;
+}
+
+.submission-list-column a
+{
+    text-decoration: none;
+    color:  #000000;
+    vertical-align: middle;
+}
+.submission-list-column a:hover
+{
+    color:  #c71f2b;
+}
+
+.notification-list-read-row
+{
+    border-bottom: 0.5px solid  #000000;
+    padding: 5px;
+    margin: 5px;
+    color:  #000000;
+}
+
+.notification-list-unread-row
+{
+    border-bottom: 0.5px solid  #000000;
+    padding: 5px;
+    margin: 5px;
+    color:  #c71f2b;
+    font-weight: bold;
+}
+
+.notification-list-column p
+{
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.notification-list-column a
+{
+    text-decoration: none;
+    color:  #000000;
+    vertical-align: middle;
+}
+.notification-list-column a:hover
+{
+    color:  #c71f2b;
+}
+
+.no-notifications-message
+{
+    padding: 5px;
+    margin: 5px;
+    color:  #c71f2b;
+    text-transform: uppercase;
+}

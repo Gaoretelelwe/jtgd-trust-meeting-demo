@@ -1,0 +1,30 @@
+<h4 class="status-message">Members</h4>
+<br />
+{% if users %}
+    {% for user in users %}
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="row">
+                        <p>{{ user.firstName }} {{ user.lastName }}</p>
+                        <p>{{ user.email }}</p>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="row">
+                        {% for role in user.roles %}
+                            <p>{{ role }} </p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <a href={{ user.editLink }}>Edit</a>
+                </div>
+                <div class="col-sm-1">
+                    <a href={{ user.deleteLink }}>Delete</a>
+                </div>
+            </div>
+            <hr />
+    {% endfor %}
+{% else %}
+    <h4>No members</h4>
+{% endif %}

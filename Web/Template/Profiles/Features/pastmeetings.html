@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+eBoardMeeting | Past Meetings
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='css/home.css')}}">
+<link rel="stylesheet" href="{{url_for('.static', filename='css/profile.css')}}">
+<link rel="stylesheet" href="{{url_for('.static', filename='css/inner_form.css')}}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+{% endblock %}
+
+{% block content %}
+    
+    {% include 'Common/Nav/profile.html' %}
+
+    <div class="container">
+        <form class="form-signin" method="POST" action="/">
+        {% include 'Common/messages.html' %}
+        </form>
+
+        <div class="row">
+            <div class="col-sm-2">
+                {% include 'Common/loggedinentityname.html' %}
+                <hr>
+                {% include 'Common/Nav/side.html' %}
+            </div>
+            <div class="col-sm-10">
+                <div class="row">
+                    <h3 class="page-heading">Archived Meetings</h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        {% include 'Common/Lists/pastmeetinglist.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+{% endblock %}

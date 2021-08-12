@@ -1,0 +1,10 @@
+
+<div class="profile-side-menu">
+    {% if sideMenuItems %}
+        {% for sideMenuItem in sideMenuItems %}
+            <div class="profile-side-menu-item">
+                <a href="{{ sideMenuItem.link }}">{{ sideMenuItem.itemName }}</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>

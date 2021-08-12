@@ -1,0 +1,51 @@
+<h4 class="status-message">Meeting Files</h4>
+<br />
+{% if files %}
+    {% if userType %}
+        {% if userType == 'ADMIN' %}
+            {% for file in files %}
+                <div class="row">
+                    <div class="col-sm-10">
+                        <p>{{ file.fileName }}</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <a href={{ file.viewLink }}>View</a>
+                    </div>
+                    <div class="col-sm-1">
+                        <a href={{ file.deleteLink }}>Delete</a>
+                    </div>
+                </div>
+                <hr />
+            {% endfor %}
+        {% else %}
+            {% for file in files %}
+                <div class="row">
+                    <div class="col-sm-11">
+                        <p>{{ file.fileName }}</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <a href={{ file.viewLink }}>View</a>
+                    </div>
+                </div>
+                <hr />
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        {% for file in files %}
+            <div class="row">
+                <div class="col-sm-10">
+                    <p>{{ file.fileName }}</p>
+                </div>
+                <div class="col-sm-1">
+                    <a href={{ file.viewLink }}>View</a>
+                </div>
+                <div class="col-sm-1">
+                    <a href={{ file.deleteLink }}>Delete</a>
+                </div>
+            </div>
+            <hr />
+        {% endfor %}
+    {% endif%}
+{% else %}
+    <h4>No files</h4>
+{% endif %}

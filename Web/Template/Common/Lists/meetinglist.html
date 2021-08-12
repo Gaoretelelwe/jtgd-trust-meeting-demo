@@ -1,0 +1,69 @@
+<h4 class="status-message">Meetings</h4>
+<br />
+{% if meetings %}
+    {% if userType %}
+        {% if userType == 'ADMIN' %}
+            {% for meeting in meetings %}
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p>{{ meeting.meetingTitle }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>{{ meeting.meetingStartDate }}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>{{ meeting.meetingEndDate }}</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <a href={{ meeting.editLink }}>Edit</a>
+                    </div>
+                    <div class="col-sm-1">
+                        <a href={{ meeting.deleteLink }}>Delete</a>
+                    </div>
+                </div>
+                <hr />
+            {% endfor %}
+        {% else %}
+            {% for meeting in meetings %}
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>{{ meeting.meetingTitle }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>{{ meeting.meetingStartDate }}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>{{ meeting.meetingEndDate }}</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <a href={{ meeting.viewLink }}>View</a>
+                    </div>
+                </div>
+                <hr />
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        {% for meeting in meetings %}
+            <div class="row">
+                <div class="col-sm-3">
+                    <p>{{ meeting.meetingTitle }}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p>{{ meeting.meetingStartDate }}</p>
+                </div>
+                <div class="col-sm-3">
+                    <p>{{ meeting.meetingEndDate }}</p>
+                </div>
+                <div class="col-sm-1">
+                    <a href={{ meeting.editLink }}>Edit</a>
+                </div>
+                <div class="col-sm-1">
+                    <a href={{ meeting.deleteLink }}>Delete</a>
+                </div>
+            </div>
+            <hr />
+        {% endfor %}
+    {% endif%}
+{% else %}
+    <h4>No Meetings</h4>
+{% endif %}

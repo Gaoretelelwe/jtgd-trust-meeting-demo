@@ -1,0 +1,49 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+eBoardMeeting | Members
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='css/profile.css')}}">
+<link rel="stylesheet" href="{{url_for('.static', filename='css/inner_form.css')}}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include 'Common/Nav/profile.html' %}
+
+<div class="spacer-div"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+        {% include 'Common/loggedinentityname.html' %}
+        <hr>
+        {% include "Common/Nav/side.html" %}
+    </div>
+    <div class="col-sm-10">
+        <div class="row">
+                <form class="form-signin" method="POST" action="/manageusers/{{ sessionGuid }}">
+                    {% include 'Common/messages.html' %}
+                    <h3 class="page-heading">Manage Members</h3>
+                    {{ form.hidden_tag() }}
+                    {{ wtf.form_field(form.userFirstname) }}
+                    {{ wtf.form_field(form.userLastname) }}
+                    {{ wtf.form_field(form.userEmail) }}
+                    {{ wtf.form_field(form.agmInd) }}
+                    {{ wtf.form_field(form.boardUserInd) }}
+                    {{ wtf.form_field(form.financeAuditRiskInd) }}
+                    {{ wtf.form_field(form.projectReviewCommitteeInd) }}
+                    {{ wtf.form_field(form.remcoInd) }}
+                    {{ wtf.form_field(form.userSave, class="btn btn-lg btn-primary btn-block") }}
+                </form>
+        </div>
+        {% include "Common/Lists/userlist.html" %}
+    </div>
+  </div>
+</div> <!-- /container -->
+{% endblock %}
