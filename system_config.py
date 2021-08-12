@@ -25,16 +25,16 @@ class SystemConfig():
         self.REGISTRATION_MAIL_SERVER = 'vendors.jtgd-trust.co.za' # str(os.environ.get('JTGD_TRUST_REGISTRATION_MAIL_SERVER')) # 'mail.tuelopay.co.za' # 
         self.REGISTRATION_MAIL_PORT = 465
         self.REGISTRATION_MAIL_USE_SSL = True
-        self.REGISTRATION_MAIL_USERNAME = 'registrations@vendors.jtgd-trust.co.za' # str(os.environ.get('JTGD_TRUST_REGISTRATION_MAIL_USERNAME')) # 'gaoretelelwe@tuelopay.co.za' # 
+        self.REGISTRATION_MAIL_USERNAME = 'emeeting@jtgd-trust.co.za' # str(os.environ.get('JTGD_TRUST_REGISTRATION_MAIL_USERNAME')) # 'gaoretelelwe@tuelopay.co.za' # 
         self.REGISTRATION_MAIL_PASSWORD = 'V3nd0R9uy' # str(os.environ.get('JTGD_TRUST_REGISTRATION_MAIL_PASSWORD')) # 'G0ldc@t91' # 
-        self.REGISTRATION_MAIL_SENDER = ('JTGD TRUST ACCOUNTS', 'registrations@vendors.jtgd-trust.co.za')
+        self.REGISTRATION_MAIL_SENDER = ('JTGD TRUST ACCOUNTS', 'emeeting@jtgd-trust.co.za')
 
         self.NOTIFICATIONS_MAIL_SERVER = 'jtgd-trust.co.za' # str(os.environ.get('JTGD_TRUST_NOTIFICATIONS_MAIL_SERVER')) # 'mail.tuelopay.co.za' # os.environ.get('JTGD_TRUST_MAIL_SERVER') # 
         self.NOTIFICATIONS_MAIL_PORT = 465
         self.NOTIFICATIONS_MAIL_USE_SSL = True
-        self.NOTIFICATIONS_MAIL_USERNAME = 'vendors@jtgd-trust.co.za' # str(os.environ.get('JTGD_TRUST_NOTIFICATIONS_MAIL_USERNAME')) # 'gaoretelelwe@tuelopay.co.za' # os.environ.get('JTGD_TRUST_MAIL_USERNAME') # 
+        self.NOTIFICATIONS_MAIL_USERNAME = 'emeeting@jtgd-trust.co.za' # str(os.environ.get('JTGD_TRUST_NOTIFICATIONS_MAIL_USERNAME')) # 'gaoretelelwe@tuelopay.co.za' # os.environ.get('JTGD_TRUST_MAIL_USERNAME') # 
         self.NOTIFICATIONS_MAIL_PASSWORD = 'V3nd0R9uy@jt9D' # str(os.environ.get('JTGD_TRUST_NOTIFICATIONS_MAIL_PASSWORD')) # 'G0ldc@t91' # os.environ.get('JTGD_TRUST_MAIL_PASSWORD') # 
-        self.NOTIFICATIONS_MAIL_SENDER = ('JTGD TRUST NOTIFICATION', 'vendors@jtgd-trust.co.za')
+        self.NOTIFICATIONS_MAIL_SENDER = ('JTGD TRUST NOTIFICATION', 'emeeting@jtgd-trust.co.za')
 
         # export JTGD_TRUST_APP_SECRET_KEY='3d6f45a5fc12445dbac2f59c3b6c7cb1'
         # export JTGD_TRUST_APP_UPLOAD_FOLDER='Documents/uploads/'
@@ -47,17 +47,17 @@ class SystemConfig():
         # export JTGD_TRUST_DATABASE_NAME='boyghtdq_Muuzaji_Demo'
 
         # export JTGD_TRUST_REGISTRATION_MAIL_SERVER='vendors.jtgd-trust.co.za'
-        # export JTGD_TRUST_REGISTRATION_MAIL_USERNAME='registrations@vendors.jtgd-trust.co.za'
+        # export JTGD_TRUST_REGISTRATION_MAIL_USERNAME='emeeting@jtgd-trust.co.za'
         # export JTGD_TRUST_REGISTRATION_MAIL_PASSWORD='V3nd0R9uy'
 
         # export JTGD_TRUST_NOTIFICATIONS_MAIL_SERVER='jtgd-trust.co.za'
-        # export JTGD_TRUST_NOTIFICATIONS_MAIL_USERNAME='vendors@jtgd-trust.co.za'
+        # export JTGD_TRUST_NOTIFICATIONS_MAIL_USERNAME='emeeting@jtgd-trust.co.za'
         # export JTGD_TRUST_NOTIFICATIONS_MAIL_PASSWORD='V3nd0R9uy@jt9D'
 
         # export JTGD_TRUST_APP_ENCRYPTION_KEY = '5tr0n9P@55w0rd4LIFE'
 
 
-        # Email - vendors@jtgd-trust.co.za
+        # Email - emeeting@jtgd-trust.co.za
         # V3nd0R9uy@jt9D
 
         # Encryption Key

@@ -1054,7 +1054,7 @@ def editmeeting_view(sessionGuid, meetingId):
 def email_meeting_invite(members, meeting):
     for member in members:
         subject = "Meeting Invitation"
-        sender = "registrations@vendors.jtgd-trust.co.za"
+        sender = "emeeting@jtgd-trust.co.za"
         recipients = [member.Email]
         body = "Good day,\n\nYou are invited to a meeting as scheduled:\n\n"
         body = body + "Title: " + meeting.Title
@@ -1312,7 +1312,7 @@ def manageusers_view(sessionGuid):
                 userId = member.UserId[0]
 
                 subject = "New Account!"
-                sender = "registrations@vendors.jtgd-trust.co.za"
+                sender = "emeeting@jtgd-trust.co.za"
                 recipients = [member.Email]
                 body = "Good day,\n\nA new account has been created for you on eBoardMeeting. User the default password provided below:\n\n"
                 body = body + "Default Password: " + defaultPassword
@@ -1558,7 +1558,7 @@ def recoverpassword_view():
             passwordRecovery = user.PasswordRecovery
 
             subject = "Password Recovery!"
-            sender = "registrations@vendors.jtgd-trust.co.za"
+            sender = "emeeting@jtgd-trust.co.za"
             recipients = [recoverPassordLogic.Email]
             body = "Good day,\n\nPlease click the below link to update your password:\n\n"
             body = body + str(g.domain_name) + str(url_for('resetpassword_view', passwordRecovery=passwordRecovery, email=recoverPassordLogic.Email, sessionGuid=g.session.SessionGuid))[1:]
