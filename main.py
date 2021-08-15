@@ -1120,8 +1120,9 @@ def viewfile_view(sessionGuid, fileId):
     file.DBFetch(fileId)
     
     filePath = "/" + app.config['UPLOAD_FOLDER'] + file.Path
+    fileName = file.Name
    
-    return render_template(form_url, filePath=filePath, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, fileId=fileId,loggedinEntityName=g.session.LoggedinEntityName)
+    return render_template(form_url, filePath=filePath, fileName=fileName, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, fileId=fileId,loggedinEntityName=g.session.LoggedinEntityName)
 
 
 @app.route("/file/delete/<string:sessionGuid>/<int:fileId>/<int:meetingId>", methods=['GET', 'POST'])
