@@ -3,6 +3,21 @@
 {% if meetings %}
     {% if userType %}
         {% if userType == 'ADMIN' %}
+            <div class="row" style="background-color:black; color:white;">
+                <div class="col-sm-3">
+                    <p>TITLE</p>
+                </div>
+                <div class="col-sm-4">
+                    <p>START DATE</p>
+                </div>
+                <div class="col-sm-3">
+                    <p>END DATE</p>
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
             {% for meeting in meetings %}
                 <div class="row">
                     <div class="col-sm-3">
@@ -24,6 +39,19 @@
                 <hr />
             {% endfor %}
         {% else %}
+            <div class="row" style="background-color:black; color:white;">
+                <div class="col-sm-4">
+                    <p>TITLE</p>
+                </div>
+                <div class="col-sm-4">
+                    <p>START DATE</p>
+                </div>
+                <div class="col-sm-3">
+                    <p>END DATE</p>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
             {% for meeting in meetings %}
                 <div class="row">
                     <div class="col-sm-4">
@@ -43,6 +71,21 @@
             {% endfor %}
         {% endif %}
     {% else %}
+        <div class="row" style="background-color:black; color:white;">
+            <div class="col-sm-3">
+                <p>TITLE</p>
+            </div>
+            <div class="col-sm-4">
+                <p>START DATE</p>
+            </div>
+            <div class="col-sm-3">
+                <p>END DATE</p>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-1">
+            </div>
+        </div>
         {% for meeting in meetings %}
             <div class="row">
                 <div class="col-sm-3">

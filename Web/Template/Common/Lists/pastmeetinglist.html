@@ -1,6 +1,19 @@
 <h4 class="status-message">Meetings</h4>
 <br />
 {% if meetings %}
+    <div class="row" style="background-color:black; color:white;">
+        <div class="col-sm-4">
+            <p>TITLE</p>
+        </div>
+        <div class="col-sm-4">
+            <p>START DATE</p>
+        </div>
+        <div class="col-sm-3">
+            <p>END DATE</p>
+        </div>
+        <div class="col-sm-1">
+        </div>
+    </div>
     {% for meeting in meetings %}
         <div class="row">
             <div class="col-sm-4">
@@ -9,8 +22,11 @@
             <div class="col-sm-4">
                 <p>{{ meeting.meetingStartDate }}</p>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <p>{{ meeting.meetingEndDate }}</p>
+            </div>
+            <div class="col-sm-1">
+                <a href={{ meeting.viewLink }}>View</a>
             </div>
         </div>
         <hr />
