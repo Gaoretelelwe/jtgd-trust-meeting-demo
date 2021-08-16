@@ -1114,10 +1114,10 @@ def viewfile_view(sessionGuid, meetingId, fileId):
      
     if g.session.AdminInd == 1: 
         sideMenuItems = _get_Admin_SideMenuItems()
-        returnToMeetingLink = str(g.domain_name) + str(url_for('editmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:] 
+        returnToMeetingLink = str(g.domain_name) + str(url_for('editmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meetingId))[1:] 
     else: 
         sideMenuItems = _get_Normal_SideMenuItems()
-        returnToMeetingLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:] 
+        returnToMeetingLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meetingId))[1:] 
     
     file = File(FileId=fileId, data_access=g.data_access)
     file.DBFetch(fileId)
