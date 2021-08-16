@@ -183,7 +183,6 @@ def _get_Normal_SideMenuItems():
 
     sideMenuItems =[{"itemName":"Home", "link":homeLink},
                     {"itemName":"Profile", "link":profileLink},
-                    {"itemName":"Past Meetings", "link":pastMeetingsLink},
                     {"itemName":"Logout", "link":logoutLink}]
     
     return sideMenuItems
@@ -1085,7 +1084,7 @@ def get_PermittedFiles(userId, meetingId):
     
     for permittedFile in permittedFilesData:
         deleteLink = str(g.domain_name) + str(url_for('deletefile_view', sessionGuid=g.session.SessionGuid, fileId=permittedFile[0], meetingId=meetingId))[1:] 
-        viewLink = str(g.domain_name) + str(url_for('viewfile_view', sessionGuid=g.session.SessionGuid, fileId=permittedFile[0]))[1:] 
+        viewLink = str(g.domain_name) + str(url_for('viewfile_view', sessionGuid=g.session.SessionGuid, meetingId=meetingId, fileId=permittedFile[0]))[1:] 
         
         permittedFiles.append({
             "fileName":permittedFile[1],
@@ -1095,8 +1094,8 @@ def get_PermittedFiles(userId, meetingId):
         
     return permittedFiles     
 
-@app.route("/file/view/<string:sessionGuid>/<int:fileId>", methods=['GET', 'POST'])
-def viewfile_view(sessionGuid, fileId):
+@app.route("/file/view/<string:sessionGuid>/<int:meetingId>/<int:fileId>", methods=['GET', 'POST'])
+def viewfile_view(sessionGuid, meetingId, fileId):
     # https://www.w3docs.com/tools/code-editor/1087
     form = FileForm()
     form_url = 'Profiles/Features/viewfile.html'
@@ -1112,9 +1111,13 @@ def viewfile_view(sessionGuid, fileId):
     if g.session.SessionGuid != sessionGuid:
         clear_session_variables()
         return redirect(url_for('home_view'))
-    
-    if g.session.AdminInd == 1: sideMenuItems = _get_Admin_SideMenuItems()
-    else: sideMenuItems = _get_Normal_SideMenuItems()
+     
+    if g.session.AdminInd == 1: 
+        sideMenuItems = _get_Admin_SideMenuItems()
+        returnToMeetingLink = str(g.domain_name) + str(url_for('editmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:] 
+    else: 
+        sideMenuItems = _get_Normal_SideMenuItems()
+        returnToMeetingLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:] 
     
     file = File(FileId=fileId, data_access=g.data_access)
     file.DBFetch(fileId)
@@ -1122,7 +1125,7 @@ def viewfile_view(sessionGuid, fileId):
     filePath = "/" + app.config['UPLOAD_FOLDER'] + file.Path
     fileName = file.Name
    
-    return render_template(form_url, filePath=filePath, fileName=fileName, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, fileId=fileId,loggedinEntityName=g.session.LoggedinEntityName)
+    return render_template(form_url, filePath=filePath, fileName=fileName, returnToMeetingLink=returnToMeetingLink, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, fileId=fileId,loggedinEntityName=g.session.LoggedinEntityName)
 
 
 @app.route("/file/delete/<string:sessionGuid>/<int:fileId>/<int:meetingId>", methods=['GET', 'POST'])

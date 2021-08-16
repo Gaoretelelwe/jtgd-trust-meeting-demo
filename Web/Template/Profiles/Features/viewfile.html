@@ -63,7 +63,9 @@ eBoardMeeting | View File
                 <form class="form-signin" method="POST" action="/file/view/{{ sessionGuid }}/{{ fileId }}">
                     {% include 'Common/messages.html' %}
                     <h3 class="page-heading">View File</h3>
-                    <a href="www.google.com">Back to Meeting</a>
+                    <br/>
+                    <a href={{ returnToMeetingLink }}>Back to Meeting</a>
+                    <br/>
                 </form>
                 <div id="adobe-dc-view" style="height: 600px; width: 100%;"></div>
         </div>
