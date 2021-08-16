@@ -54,7 +54,7 @@ class MeetingForm(FlaskForm):
     meetingStartDate = DateTimeLocalField('Start Date', format='%Y-%m-%dT%H:%M', validators=[InputRequired()])
     meetingEndDate = DateTimeLocalField('End Date', format='%Y-%m-%dT%H:%M', validators=[InputRequired()])
     
-    meetingOnlineLink = StringField('Online Link', validators=[Length(min=0, max=50)])
+    meetingOnlineLink = StringField('Online Link', validators=[Length(min=0, max=200)])
     meetingRoom = StringField('Room Number', validators=[Length(min=0, max=50)])
     meetingBuilding = StringField('Building Name', validators=[Length(min=0, max=50)])
     meetingStreet = StringField('Street', validators=[Length(min=0, max=50)])
