@@ -435,8 +435,9 @@ def pastmeetings_view(sessionGuid):
         sideMenuItems = _get_Admin_SideMenuItems()
     else:
         sideMenuItems = _get_Normal_SideMenuItems()
-
+    
     meetings = get_PastMeetings()
+    
     return render_template(form_url, form=form, meetings=meetings, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, loggedinEntityName=g.session.LoggedinEntityName)
 
 
@@ -647,7 +648,7 @@ def get_AdminMeetings():
         
         editLink = str(g.domain_name) + str(url_for('editmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:]  
         deleteLink = str(g.domain_name) + str(url_for('deletemeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:] 
-        viewLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:] 
+        viewLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId, meetingScope='ACTIVE'))[1:] 
         
         meetings.append({"meetingType": meetingType.Name,
                          "meetingHost": host.Firstname + ' ' + host.Lastname,
@@ -688,7 +689,7 @@ def get_PastMeetings():
         
         editLink = str(g.domain_name) + str(url_for('editmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:]  
         deleteLink = str(g.domain_name) + str(url_for('deletemeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:] 
-        viewLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId))[1:] 
+        viewLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meeting.MeetingId, meetingScope='PAST'))[1:] 
         
         meetings.append({"meetingType": meetingType.Name,
                          "meetingHost": host.Firstname + ' ' + host.Lastname,
@@ -736,11 +737,10 @@ def deletemeeting_view(sessionGuid, meetingId):
             MI.DBFetch(meetingInvitation.MeetingInvitationId)
             MI.Delete()
         
-        meetingFiles = systemUserRoles.meetingFile
-        (meetingId)
+        meetingFiles = systemUserRoles.meetingFiles(meetingId)
 
         for meetingFile in meetingFiles:
-            MF = MeetingInvitation(MeetingInvitationId=meetingFile.MeetingFileId, data_access=g.data_access)
+            MF = MeetingFile(MeetingFileId=meetingFile.MeetingFileId, data_access=g.data_access)
             MF.DBFetch(meetingFile.MeetingFileId)
             MF.Delete()
 
@@ -881,7 +881,7 @@ def editmeeting_view(sessionGuid, meetingId):
 
             flash("Meeting successfully saved", "success")
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             resp = make_response(redirect(url_for('editmeeting_view', files=files, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName)))
             return resp
@@ -889,7 +889,7 @@ def editmeeting_view(sessionGuid, meetingId):
             g.app_has_errors = True
             flash(insert_error.message, "danger")
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             resp = make_response(render_template(form_url, files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName))
             return resp
@@ -897,7 +897,7 @@ def editmeeting_view(sessionGuid, meetingId):
             g.app_has_errors = True
             flash(update_error.message, "danger")
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             resp = make_response(render_template(form_url, files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName))
             return resp
@@ -905,7 +905,7 @@ def editmeeting_view(sessionGuid, meetingId):
             g.app_has_errors = True
             flash(capture_error.message, "danger")
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             resp = make_response(render_template(form_url, files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName))
             return resp
@@ -979,7 +979,7 @@ def editmeeting_view(sessionGuid, meetingId):
 
             uploadedFile.save(app.config['UPLOAD_FOLDER'] + meetingFile.Path)
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             flash("File uploaded successfully.", "success")
             return redirect(url_for('editmeeting_view', files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName))
@@ -989,7 +989,7 @@ def editmeeting_view(sessionGuid, meetingId):
             g.app_has_errors = True
             flash(insert_error.message, "danger")
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             resp = make_response(render_template(form_url, files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName))
             return resp
@@ -997,7 +997,7 @@ def editmeeting_view(sessionGuid, meetingId):
             g.app_has_errors = True
             flash(update_error.message, "danger")
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             resp = make_response(render_template(form_url, files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName))
             return resp
@@ -1005,7 +1005,7 @@ def editmeeting_view(sessionGuid, meetingId):
             g.app_has_errors = True
             flash(file_missing_error.message, "danger")
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             resp = make_response(render_template(form_url, files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName))
             return resp
@@ -1013,7 +1013,7 @@ def editmeeting_view(sessionGuid, meetingId):
             g.app_has_errors = True
             flash(file_size_error.message, "danger")
             
-            files = get_PermittedFiles(g.session.UserId, meetingId)
+            files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
             
             resp = make_response(render_template(form_url, files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName))
             return resp
@@ -1054,7 +1054,7 @@ def editmeeting_view(sessionGuid, meetingId):
     meetingInvitation = pythonSQL.getMeetingInvitation(meetingId, accessGroup.AccessGroupId, g.data_access)
     form.remcoInd.data = meetingInvitation != None
             
-    files = get_PermittedFiles(g.session.UserId, meetingId)        
+    files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')        
             
     return render_template(form_url, files=files, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName)
 
@@ -1083,7 +1083,7 @@ def allowed_file(filename):
 def get_file_extension(filename):
     return filename.rsplit('.', 1)[1]
 
-def get_PermittedFiles(userId, meetingId):
+def get_PermittedFiles(userId, meetingId, meetingScope):
     storedProc = StoredProcs()
 
     permittedFilesData = storedProc.getPermittedFiles(userId, meetingId, g.data_access)
@@ -1092,7 +1092,7 @@ def get_PermittedFiles(userId, meetingId):
     
     for permittedFile in permittedFilesData:
         deleteLink = str(g.domain_name) + str(url_for('deletefile_view', sessionGuid=g.session.SessionGuid, fileId=permittedFile[0], meetingId=meetingId))[1:] 
-        viewLink = str(g.domain_name) + str(url_for('viewfile_view', sessionGuid=g.session.SessionGuid, meetingId=meetingId, fileId=permittedFile[0]))[1:] 
+        viewLink = str(g.domain_name) + str(url_for('viewfile_view', sessionGuid=g.session.SessionGuid, meetingId=meetingId, fileId=permittedFile[0], meetingScope=meetingScope))[1:] 
         
         permittedFiles.append({
             "fileName":permittedFile[1],
@@ -1102,8 +1102,8 @@ def get_PermittedFiles(userId, meetingId):
         
     return permittedFiles     
 
-@app.route("/file/view/<string:sessionGuid>/<int:meetingId>/<int:fileId>", methods=['GET', 'POST'])
-def viewfile_view(sessionGuid, meetingId, fileId):
+@app.route("/file/view/<string:sessionGuid>/<int:meetingId>/<int:fileId>/<string:meetingScope>", methods=['GET', 'POST'])
+def viewfile_view(sessionGuid, meetingId, fileId, meetingScope):
     # https://www.w3docs.com/tools/code-editor/1087
     form = FileForm()
     form_url = 'Profiles/Features/viewfile.html'
@@ -1125,7 +1125,7 @@ def viewfile_view(sessionGuid, meetingId, fileId):
         returnToMeetingLink = str(g.domain_name) + str(url_for('editmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meetingId))[1:] 
     else: 
         sideMenuItems = _get_Normal_SideMenuItems()
-        returnToMeetingLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meetingId))[1:] 
+        returnToMeetingLink = str(g.domain_name) + str(url_for('viewmeeting_view', sessionGuid=g.session.SessionGuid, meetingId=meetingId, meetingScope=meetingScope))[1:] 
     
     file = File(FileId=fileId, data_access=g.data_access)
     file.DBFetch(fileId)
@@ -1177,7 +1177,7 @@ def deletefile_view(sessionGuid, fileId, meetingId):
 
         flash("File deleted successfully.", "success")
             
-        files = get_PermittedFiles(g.session.UserId, meetingId)
+        files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')
         
         resp = make_response(redirect(url_for('editmeeting_view', files=files, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName)))
         return resp
@@ -1192,8 +1192,8 @@ def deletefile_view(sessionGuid, fileId, meetingId):
         resp = make_response(redirect(url_for('managemeetings_view', sessionGuid=sessionGuid,loggedinEntityName=g.session.LoggedinEntityName)))
         return resp
 
-@app.route("/meeting/view/<string:sessionGuid>/<int:meetingId>", methods=['GET', 'POST'])
-def viewmeeting_view(sessionGuid, meetingId):
+@app.route("/meeting/view/<string:sessionGuid>/<int:meetingId>/<string:meetingScope>", methods=['GET', 'POST'])
+def viewmeeting_view(sessionGuid, meetingId, meetingScope):
     form = MeetingForm()
     formAddDocument = FileForm()
     form_url = 'Profiles/Features/viewmeeting.html'
@@ -1234,9 +1234,9 @@ def viewmeeting_view(sessionGuid, meetingId):
     form.meetingStartDate.data = meeting.StartDate
     form.meetingEndDate.data = meeting.EndDate
             
-    files = get_PermittedFiles(g.session.UserId, meetingId)     
+    files = get_PermittedFiles(g.session.UserId, meetingId, meetingScope)     
     
-    return render_template(form_url, files=files, userType=userType, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName)
+    return render_template(form_url, files=files, userType=userType, meetingScope=meetingScope, form=form, formAddDocument=formAddDocument, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid, meetingId=meetingId,loggedinEntityName=g.session.LoggedinEntityName)
 
 @app.route("/manageusers/<string:sessionGuid>", methods=["GET", "POST"])
 def manageusers_view(sessionGuid):

@@ -141,6 +141,27 @@ class Lists(object):
 
         return meetingFile
 
+    def meetingFiles(self, meetingId):
+        meetingFile = []
+        meta = MetaData()
+        data_access = DataAccess()
+
+        content = Table(
+            'MeetingFile', meta,
+            Column('MeetingFileId', Integer, primary_key=True),
+            Column('MeetingId', Integer),
+            Column('FileId', Integer),
+        )
+
+        s = content.select().where(content.c.MeetingId == meetingId)
+        result = data_access.connection.execute(s)
+
+        for row in result: meetingFile.append(row)
+
+        data_access.close_connection()
+
+        return meetingFile
+
     def meetingInvitations(self, meetingId):
         meetingInvitations = []
         meta = MetaData()
