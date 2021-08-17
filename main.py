@@ -735,6 +735,14 @@ def deletemeeting_view(sessionGuid, meetingId):
             MI = MeetingInvitation(MeetingInvitationId=meetingInvitation.MeetingInvitationId, data_access=g.data_access)
             MI.DBFetch(meetingInvitation.MeetingInvitationId)
             MI.Delete()
+        
+        meetingFiles = systemUserRoles.meetingFile
+        (meetingId)
+
+        for meetingFile in meetingFiles:
+            MF = MeetingInvitation(MeetingInvitationId=meetingFile.MeetingFileId, data_access=g.data_access)
+            MF.DBFetch(meetingFile.MeetingFileId)
+            MF.Delete()
 
         meeting = Meeting(MeetingId=meetingId, data_access=g.data_access)
         meeting.DBFetch(meetingId)
