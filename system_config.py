@@ -20,7 +20,7 @@ class SystemConfig():
         self.DATABASE_HOST = 'cp-2.hkdns.co.za' # str(os.environ.get('JTGD_TRUST_DATABASE_HOST')) # 'cp-7.hkdns.co.za' # 'cp28-za1.host-ww.net' # os.environ.get('TUELO_PAY_DB_HOST') # 
         self.DATABASE_PORT = '3306' # str(os.environ.get('JTGD_TRUST_DATABASE_PORT')) # os.environ.get('TUELO_PAY_DB_PORT') # 
         #self.DATABASE_NAME = 'boyghtdq_Kopano' # 'boyghtdq_Muuzaji_Demo' # str(os.environ.get('JTGD_TRUST_DATABASE_NAME')) # 'boyghtdq_xjbcirqc_Muuzaji' # 'ogoyfsjp_Muuzaji' # os.environ.get('TUELO_PAY_DB_DATABASE') #
-        self.DATABASE_NAME = 'boyghtdq_Kopano_PROD' # 'boyghtdq_Muuzaji_Demo' # str(os.environ.get('JTGD_TRUST_DATABASE_NAME')) # 'boyghtdq_xjbcirqc_Muuzaji' # 'ogoyfsjp_Muuzaji' # os.environ.get('TUELO_PAY_DB_DATABASE') #
+        self.DATABASE_NAME = 'boyghtdq_Kopano_PROD' #'boyghtdq_Muuzaji_Demo' # str(os.environ.get('JTGD_TRUST_DATABASE_NAME')) # 'boyghtdq_xjbcirqc_Muuzaji' # 'ogoyfsjp_Muuzaji' # os.environ.get('TUELO_PAY_DB_DATABASE') #
 
         # Email Configs
         self.REGISTRATION_MAIL_SERVER = 'jtgd-trust.co.za' # str(os.environ.get('JTGD_TRUST_REGISTRATION_MAIL_SERVER')) # 'mail.tuelopay.co.za' # 
