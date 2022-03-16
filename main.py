@@ -478,8 +478,10 @@ def managemeetings_view(sessionGuid):
             agm = form.agmInd.data
             boardUser = form.boardUserInd.data
             financeAuditRisk = form.financeAuditRiskInd.data
+            management = form.managementInd.data
             projectReviewCommittee = form.projectReviewCommitteeInd.data
             remco = form.remcoInd.data
+            staff = form.staffInd.data
             
             presentTime = datetime.datetime.now()
             
@@ -497,7 +499,7 @@ def managemeetings_view(sessionGuid):
                 if meetingTown is None or meetingTown == '':
                     raise InsertError('Meeting town must be provided if room, building or street is provided')
             
-            if not (agm or boardUser or financeAuditRisk or projectReviewCommittee or remco):
+            if not (agm or boardUser or financeAuditRisk or management or projectReviewCommittee or remco or staff):
                 raise CaptureError('Please select at least one Access Group')
             
             location = Location(LocationId=None,
@@ -570,6 +572,21 @@ def managemeetings_view(sessionGuid):
                         invited_user.DBFetch(userAccessGroup.UserId)
                         invited_members.append(invited_user)
 
+            if form.managementInd.data: 
+                accessGroup = pythonSQL.getAccessGroupByName('MANAGEMENT', g.data_access)
+                meetingInvitation = MeetingInvitation(MeetingId=meeting.MeetingId[0], 
+                                                      AccessGroupId=accessGroup.AccessGroupId,
+                                                      data_access=g.data_access)
+                meetingInvitation.Save()
+                
+                userAccessGroups = pythonSQL.getUserAccessGroups(accessGroup.AccessGroupId, g.data_access)
+                for userAccessGroup in userAccessGroups:
+                    if userAccessGroup.UserId not in invited_members_ids:
+                        invited_members_ids.append(userAccessGroup.UserId)
+                        invited_user = User(UserId=userAccessGroup.UserId, data_access=g.data_access)
+                        invited_user.DBFetch(userAccessGroup.UserId)
+                        invited_members.append(invited_user)
+
             if form.projectReviewCommitteeInd.data: 
                 accessGroup = pythonSQL.getAccessGroupByName('PROJECT REVIEW COMMITTEE', g.data_access)
                 meetingInvitation = MeetingInvitation(MeetingId=meeting.MeetingId[0], 
@@ -587,6 +604,21 @@ def managemeetings_view(sessionGuid):
 
             if form.remcoInd.data:
                 accessGroup = pythonSQL.getAccessGroupByName('REMCO', g.data_access)
+                meetingInvitation = MeetingInvitation(MeetingId=meeting.MeetingId[0], 
+                                                      AccessGroupId=accessGroup.AccessGroupId,
+                                                      data_access=g.data_access)
+                meetingInvitation.Save()
+                
+                userAccessGroups = pythonSQL.getUserAccessGroups(accessGroup.AccessGroupId, g.data_access)
+                for userAccessGroup in userAccessGroups:
+                    if userAccessGroup.UserId not in invited_members_ids:
+                        invited_members_ids.append(userAccessGroup.UserId)
+                        invited_user = User(UserId=userAccessGroup.UserId, data_access=g.data_access)
+                        invited_user.DBFetch(userAccessGroup.UserId)
+                        invited_members.append(invited_user)
+
+            if form.staffInd.data: 
+                accessGroup = pythonSQL.getAccessGroupByName('STAFF', g.data_access)
                 meetingInvitation = MeetingInvitation(MeetingId=meeting.MeetingId[0], 
                                                       AccessGroupId=accessGroup.AccessGroupId,
                                                       data_access=g.data_access)
@@ -822,11 +854,23 @@ def editmeeting_view(sessionGuid, meetingId):
             else:
                 projectReviewCommitteeInd = 0
 
+            management = form.managementInd.data
+            if management:
+                managementInd = 1
+            else:
+                managementInd = 0
+
             remco = form.remcoInd.data
             if remco:
                 remcoInd = 1
             else:
                 remcoInd = 0
+
+            staff = form.staffInd.data
+            if staff:
+                staffInd = 1
+            else:
+                staffInd = 0
             
             presentTime = datetime.datetime.now()
             
@@ -844,7 +888,7 @@ def editmeeting_view(sessionGuid, meetingId):
                 if meetingTown is None or meetingTown == '':
                     raise InsertError('Meeting town must be provided if room, building or street is provided')
             
-            if not (agm or boardUser or financeAuditRisk or projectReviewCommittee or remco):
+            if not (agm or boardUser or financeAuditRisk or management or projectReviewCommittee or remco or staff):
                 raise CaptureError('Please select at least one Access Group')
             
             meeting = Meeting(MeetingId=meetingId, data_access=g.data_access)
@@ -876,7 +920,13 @@ def editmeeting_view(sessionGuid, meetingId):
             accessGroup = pythonSQL.getAccessGroupByName('PROJECT REVIEW COMMITTEE', g.data_access)
             CaptureMeetingInvitationCheckBoxField(projectReviewCommittee, meetingId, accessGroup.AccessGroupId)
 
+            accessGroup = pythonSQL.getAccessGroupByName('MANAGEMENT', g.data_access)
+            CaptureMeetingInvitationCheckBoxField(remco, meetingId, accessGroup.AccessGroupId)
+
             accessGroup = pythonSQL.getAccessGroupByName('REMCO', g.data_access)
+            CaptureMeetingInvitationCheckBoxField(remco, meetingId, accessGroup.AccessGroupId)
+
+            accessGroup = pythonSQL.getAccessGroupByName('STAFF', g.data_access)
             CaptureMeetingInvitationCheckBoxField(remco, meetingId, accessGroup.AccessGroupId)
 
             flash("Meeting successfully saved", "success")
@@ -915,7 +965,9 @@ def editmeeting_view(sessionGuid, meetingId):
             boardUser = formAddDocument.boardUserInd.data
             financeAuditRisk = formAddDocument.financeAuditRiskInd.data
             projectReviewCommittee = formAddDocument.projectReviewCommitteeInd.data
+            management = formAddDocument.managementInd.data
             remco = formAddDocument.remcoInd.data
+            staff = formAddDocument.staffInd.data
 
             if 'fileContent' not in request.files:
                 raise FileMissingError('File is not attached')
@@ -933,7 +985,7 @@ def editmeeting_view(sessionGuid, meetingId):
             if meetingFile.Name is None or meetingFile.Name == '':
                 raise CaptureError('File name is not captured')
             
-            if not (agm or boardUser or financeAuditRisk or projectReviewCommittee or remco):
+            if not (agm or boardUser or financeAuditRisk or management or projectReviewCommittee or remco or staff):
                 raise CaptureError('Please select at least one Access Group')
             
             meetingFile.Save()
@@ -971,7 +1023,21 @@ def editmeeting_view(sessionGuid, meetingId):
                 fileAccess.Save()
 
             if formAddDocument.remcoInd.data:
+                accessGroup = pythonSQL.getAccessGroupByName('MANAGEMENT', g.data_access)
+                fileAccess = FileAccess(FileId=meetingFile.FileId[0], 
+                                        AccessGroupId=accessGroup.AccessGroupId,
+                                        data_access=g.data_access)
+                fileAccess.Save()
+
+            if formAddDocument.remcoInd.data:
                 accessGroup = pythonSQL.getAccessGroupByName('REMCO', g.data_access)
+                fileAccess = FileAccess(FileId=meetingFile.FileId[0], 
+                                        AccessGroupId=accessGroup.AccessGroupId,
+                                        data_access=g.data_access)
+                fileAccess.Save()
+
+            if formAddDocument.remcoInd.data:
+                accessGroup = pythonSQL.getAccessGroupByName('STAFF', g.data_access)
                 fileAccess = FileAccess(FileId=meetingFile.FileId[0], 
                                         AccessGroupId=accessGroup.AccessGroupId,
                                         data_access=g.data_access)
@@ -1050,9 +1116,17 @@ def editmeeting_view(sessionGuid, meetingId):
     meetingInvitation = pythonSQL.getMeetingInvitation(meetingId, accessGroup.AccessGroupId, g.data_access)
     form.projectReviewCommitteeInd.data = meetingInvitation != None
 
+    accessGroup = pythonSQL.getAccessGroupByName('MANAGEMENT', g.data_access)
+    meetingInvitation = pythonSQL.getMeetingInvitation(meetingId, accessGroup.AccessGroupId, g.data_access)
+    form.managementInd.data = meetingInvitation != None
+
     accessGroup = pythonSQL.getAccessGroupByName('REMCO', g.data_access)
     meetingInvitation = pythonSQL.getMeetingInvitation(meetingId, accessGroup.AccessGroupId, g.data_access)
     form.remcoInd.data = meetingInvitation != None
+
+    accessGroup = pythonSQL.getAccessGroupByName('STAFF', g.data_access)
+    meetingInvitation = pythonSQL.getMeetingInvitation(meetingId, accessGroup.AccessGroupId, g.data_access)
+    form.staffInd.data = meetingInvitation != None
             
     files = get_PermittedFiles(g.session.UserId, meetingId, 'ACTIVE')        
             
@@ -1286,6 +1360,12 @@ def manageusers_view(sessionGuid):
             else:
                 financeAuditRiskInd = 0
 
+            management = form.managementInd.data
+            if management:
+                managementInd = 1
+            else:
+                managementInd = 0
+
             projectReviewCommittee = form.projectReviewCommitteeInd.data
             if projectReviewCommittee:
                 projectReviewCommitteeInd = 1
@@ -1297,6 +1377,12 @@ def manageusers_view(sessionGuid):
                 remcoInd = 1
             else:
                 remcoInd = 0
+
+            staff = form.staffInd.data
+            if staff:
+                staffInd = 1
+            else:
+                staffInd = 0
             
             aes = AESCipher(sysConfig.ENCRYPTION_KEY)
             defaultPassword = 'M33t1n9.syst3m'
@@ -1339,7 +1425,7 @@ def manageusers_view(sessionGuid):
             g.session.MemberId = None
             g.session.Save()
             
-            if not (agm or boardUser or financeAuditRisk or projectReviewCommittee or remco):
+            if not (agm or boardUser or financeAuditRisk  or management or projectReviewCommittee or remco or staff):
                 raise CaptureError('Please select at least one Access Group')
 
             accessGroup = pythonSQL.getAccessGroupByName('AGM', g.data_access)
@@ -1351,11 +1437,17 @@ def manageusers_view(sessionGuid):
             accessGroup = pythonSQL.getAccessGroupByName('FINANCE AUDIT RISK', g.data_access)
             CaptureUserAccessGroupCheckBoxField(financeAuditRisk, userId, accessGroup.AccessGroupId)
 
+            accessGroup = pythonSQL.getAccessGroupByName('MANAGEMENT', g.data_access)
+            CaptureUserAccessGroupCheckBoxField(management, userId, accessGroup.AccessGroupId)
+
             accessGroup = pythonSQL.getAccessGroupByName('PROJECT REVIEW COMMITTEE', g.data_access)
             CaptureUserAccessGroupCheckBoxField(projectReviewCommittee, userId, accessGroup.AccessGroupId)
 
             accessGroup = pythonSQL.getAccessGroupByName('REMCO', g.data_access)
             CaptureUserAccessGroupCheckBoxField(remco, userId, accessGroup.AccessGroupId)
+
+            accessGroup = pythonSQL.getAccessGroupByName('STAFF', g.data_access)
+            CaptureUserAccessGroupCheckBoxField(staff, userId, accessGroup.AccessGroupId)
 
             flash("User successfully saved", "success")
             resp = make_response(redirect(url_for('manageusers_view', sessionGuid=g.session.SessionGuid,loggedinEntityName=g.session.LoggedinEntityName)))
@@ -1396,6 +1488,10 @@ def manageusers_view(sessionGuid):
         userAccessGroup = pythonSQL.getUserAccessGroup(g.session.MemberId, accessGroup.AccessGroupId, g.data_access)
         form.financeAuditRiskInd.data = userAccessGroup != None
 
+        accessGroup = pythonSQL.getAccessGroupByName('MANAGEMENT', g.data_access)
+        userAccessGroup = pythonSQL.getUserAccessGroup(g.session.MemberId, accessGroup.AccessGroupId, g.data_access)
+        form.managementInd.data = userAccessGroup != None
+
         accessGroup = pythonSQL.getAccessGroupByName('PROJECT REVIEW COMMITTEE', g.data_access)
         userAccessGroup = pythonSQL.getUserAccessGroup(g.session.MemberId, accessGroup.AccessGroupId, g.data_access)
         form.projectReviewCommitteeInd.data = userAccessGroup != None
@@ -1403,6 +1499,10 @@ def manageusers_view(sessionGuid):
         accessGroup = pythonSQL.getAccessGroupByName('REMCO', g.data_access)
         userAccessGroup = pythonSQL.getUserAccessGroup(g.session.MemberId, accessGroup.AccessGroupId, g.data_access)
         form.remcoInd.data = userAccessGroup != None
+
+        accessGroup = pythonSQL.getAccessGroupByName('STAFF', g.data_access)
+        userAccessGroup = pythonSQL.getUserAccessGroup(g.session.MemberId, accessGroup.AccessGroupId, g.data_access)
+        form.staffInd.data = userAccessGroup != None
 
     return render_template(form_url, form=form, users=users, sideMenuItems=sideMenuItems, sessionGuid=g.session.SessionGuid,loggedinEntityName=g.session.LoggedinEntityName)
 
@@ -1656,3 +1756,25 @@ def clear_session_variables():
     g.session.MemberId = None
     g.session.LoggedinEntityName = None
     g.session.Save()
+
+
+@app.route('/testing', methods=['GET', 'POST'])
+def testing_view():
+    form = HomeForm()
+    form_url = ('home.html')
+    
+    aes = AESCipher(sysConfig.ENCRYPTION_KEY)
+    
+    admin_one = User(UserId=19, data_access=g.data_access)
+    admin_one.DBFetch(19)
+    
+    admin_two = User(UserId=26, data_access=g.data_access)
+    admin_two.DBFetch(26)
+
+    one = aes.decrypt(admin_one.Password)
+    two = aes.decrypt(admin_two.Password)
+
+    pdb.set_trace()
+
+    resp = make_response(render_template(form_url, form=form))
+    return resp

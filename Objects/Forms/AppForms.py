@@ -36,8 +36,10 @@ class UserForm(FlaskForm):
     agmInd = BooleanField('AGM')
     boardUserInd = BooleanField('BOARD USER')
     financeAuditRiskInd = BooleanField('FINANCE AUDIT RISK')
+    managementInd = BooleanField('MANAGEMENT')
     projectReviewCommitteeInd = BooleanField('PROJECT REVIEW COMMITTEE')
     remcoInd = BooleanField('REMCO')
+    staffInd = BooleanField('STAFF')
     
     userSave = SubmitField('Save User')
     
@@ -63,8 +65,10 @@ class MeetingForm(FlaskForm):
     agmInd = BooleanField('AGM')
     boardUserInd = BooleanField('BOARD USER')
     financeAuditRiskInd = BooleanField('FINANCE AUDIT RISK')
+    managementInd = BooleanField('MANAGEMENT')
     projectReviewCommitteeInd = BooleanField('PROJECT REVIEW COMMITTEE')
     remcoInd = BooleanField('REMCO')
+    staffInd = BooleanField('STAFF')
     
     meetingAdd = SubmitField('Save Meeting')
     
@@ -80,8 +84,10 @@ class FileForm(FlaskForm):
     agmInd = BooleanField('AGM')
     boardUserInd = BooleanField('BOARD USER')
     financeAuditRiskInd = BooleanField('FINANCE AUDIT RISK')
+    managementInd = BooleanField('MANAGEMENT')
     projectReviewCommitteeInd = BooleanField('PROJECT REVIEW COMMITTEE')
     remcoInd = BooleanField('REMCO')
+    staffInd = BooleanField('STAFF')
     
     fileSave = SubmitField('Save File')
 
