@@ -17,8 +17,7 @@ class SystemConfig():
         # Database Configs
         self.DATABASE_USERNAME = 'boyghtdq_KopanoAdmin' # str(os.environ.get('JTGD_TRUST_DATABASE_USERNAME')) # 'ogoyfsjp_jtgdtrust' # 'ogoyfsjp' # 'ogoyfsjp_vendorguy' # os.environ.get('JTGD_TRUST_DATABASE_USERNAME') # os.environ.get('TUELO_PAY_DB_USERNAME') # 
         self.DATABASE_PASSWORD = 'K0pan0Adm1n' # str(os.environ.get('JTGD_TRUST_DATABASE_PASSWORD')) # 'G0ldc@t91' # os.environ.get('TUELO_PAY_DB_PASSWORD') # 
-        # 'cp-2.hkdns.co.za' # str(os.environ.get('JTGD_TRUST_DATABASE_HOST')) # 'cp-7.hkdns.co.za' # 'cp28-za1.host-ww.net' # os.environ.get('TUELO_PAY_DB_HOST') #
-        self.DATABASE_HOST = 'da-11.hkdns.host'
+        self.DATABASE_HOST = 'cp-15.hkdns.co.za' #  'da-11.hkdns.host' # 'cp-2.hkdns.co.za' # str(os.environ.get('JTGD_TRUST_DATABASE_HOST')) # 'cp-7.hkdns.co.za' # 'cp28-za1.host-ww.net' # os.environ.get('TUELO_PAY_DB_HOST') #
         self.DATABASE_PORT = '3306' # str(os.environ.get('JTGD_TRUST_DATABASE_PORT')) # os.environ.get('TUELO_PAY_DB_PORT') # 
         self.DATABASE_NAME = 'boyghtdq_Kopano' # 'boyghtdq_Muuzaji_Demo' # str(os.environ.get('JTGD_TRUST_DATABASE_NAME')) # 'boyghtdq_xjbcirqc_Muuzaji' # 'ogoyfsjp_Muuzaji' # os.environ.get('TUELO_PAY_DB_DATABASE') #
         #self.DATABASE_NAME = 'boyghtdq_Kopano_PROD' #'boyghtdq_Muuzaji_Demo' # str(os.environ.get('JTGD_TRUST_DATABASE_NAME')) # 'boyghtdq_xjbcirqc_Muuzaji' # 'ogoyfsjp_Muuzaji' # os.environ.get('TUELO_PAY_DB_DATABASE') #
